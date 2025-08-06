@@ -1,0 +1,115 @@
+\documentclass[12pt]{report}
+\usepackage{polyglossia}
+\setmainlanguage{vietnamese}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage[a4paper]{geometry}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{indentfirst}
+% \setlength{\parindent}{15pt}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{\leftmark}
+% \fancyfoot{}
+% \fancyfoot[R]{\thepage}
+% \fancyfoot[L]{Chương \thechapter}
+% \fancyfoot[C]{Bùi Minh Thắng}
+\fancyheadoffset[R]{0mm}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{courier}
+
+
+\usepackage{biblatex}
+\addbibresource{refs.bib}
+
+\title{
+    {Thesis Title}\\
+    {\large Institution Name}\\
+    % {\includegraphics{UET_logo.png}}
+}
+\author{Bùi Minh Thắng}
+\date{March 2025}
+
+\begin{document}
+% \fontsize{14pt}{18pt}\selectfont
+
+\input{titlepage}
+
+\newgeometry{
+    top=2cm,
+    bottom=2cm,
+    left=3cm,
+    right=2cm
+}
+
+\chapter*{Lời cam đoan}
+Nhóm em xin cam đoan: Báo cáo nghiên cứu khoa học với đề tài “Mô phỏng điều hướng lưu lượng trong O-RAN với xApp dùng Deep Reinforcement Learning” này là của nhóm em. Những gì nhóm em viết ra không có sự sao chép từ các tài liệu, không sử dụng kết quả của người khác mà không trích dẫn cụ thể. Đây là công trình nghiên cứu tập thể nhóm em tự phát triển, không sao chép mã nguồn của người khác. Nếu vi phạm những điều trên, nhóm em xin chấp nhận tất cả những truy cứu về trách nhiệm theo quy định.
+
+\vspace{2cm} % nếu cần tạo khoảng cách từ nội dung phía trên
+\noindent
+\hfill
+\begin{minipage}{0.4\textwidth}
+    \centering
+    \textbf{Sinh viên}\\[1cm] % khoảng trống cho chữ ký
+    Bùi Minh Thắng\\
+    Nguyễn Vũ Minh\\
+    Ma Đức Minh\\
+    Nguyễn Hoàng Tùng Dương\\
+\end{minipage}
+
+\chapter*{Lời cảm ơn}
+Lời đầu tiên, em xin được gửi lời cảm ơn chân thành tới Khoa Công nghệ Thông tin – Trường Đại học Công nghệ – Đại học Quốc gia Hà Nội đã tạo điều kiện thuận lợi để em được học tập, nghiên cứu và thực hiện đề tài này.
+
+Em xin bày tỏ lòng biết ơn sâu sắc tới thầy Nguyễn Ngọc Tân và thầy Nguyễn Thái Dương đã tận tình hướng dẫn, hỗ trợ em trong suốt quá trình nghiên cứu và triển khai đề tài.
+
+Bên cạnh đó, em xin được bày tỏ lòng biết ơn tới các thầy cô trong khoa đã tận tâm giảng dạy và trang bị cho em những kiến thức quý báu trong suốt quá trình học tập tại trường.
+
+Cuối cùng, em xin chúc các thầy cô, các bạn luôn mạnh khỏe, hạnh phúc và gặt hái nhiều thành công trong cuộc sống.
+
+\chapter*{Tóm tắt}
+Báo cáo này trình bày quá trình phát triển và mô phỏng một xApp trong kiến trúc Open RAN, tập trung vào việc điều hướng lưu lượng mạng sử dụng Deep Reinforcement Learning (DRL). Chúng tôi đã xây dựng một xApp để tối ưu hóa việc phân phối lưu lượng mạng trong môi trường O-RAN, sử dụng mô hình DRL để cải thiện hiệu suất mạng. Bằng cách sử dụng mô phỏng ns-3, chúng tôi đã kiểm tra hiệu quả của xApp trong các tình huống thực tế, cho thấy khả năng cải thiện đáng kể trong việc quản lý lưu lượng và tối ưu hóa tài nguyên mạng. Báo cáo cũng cung cấp hướng dẫn chi tiết về cách phát triển xApp và tích hợp nó vào hệ thống O-RAN.
+
+\textbf{Từ khoá:} Open RAN architecture, O-RAN RIC, xApp development, O-RAN use cases, ns-3 O-RAN simulation, DRL for traffic steering, RAN Intelligent Controller.
+
+\tableofcontents
+
+% % \listoffigures
+
+% % \listoftables
+
+% % \chapter*{Thuật ngữ}
+
+
+\chapter{Đặt vấn đề}
+\input{chapters/chapter01}
+
+\chapter{Kiến thức cơ sở}
+\input{chapters/chapter02.1}
+\input{chapters/chapter02.2}
+\input{chapters/chapter02.3}
+
+% \chapter{Phương pháp tối ưu hoá ABR}
+% \input{chapters/chapter03}
+
+\chapter{Cài đặt phương pháp và thực nghiệm}
+\input{chapters/chapter03.1}
+\input{chapters/chapter03.2}
+\input{chapters/chapter03.3}
+\input{chapters/chapter03.4}
+
+
+\chapter{Kết luận}
+\input{chapters/chapter05}
+
+% \chapter*{Tài liệu tham khảo}
+% \input{chapters/references}
+
+\printbibliography[heading=bibintoc]
+
+\end{document}
