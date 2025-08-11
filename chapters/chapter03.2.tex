@@ -1,7 +1,35 @@
-\section{Giới thiệu về RIMEDO-TS}
-RIMEDO-TS được phát triển bởi dự án ONOS (Open Network Operating System), cung cấp môi trường mô phỏng chi tiết và linh hoạt cho các giải pháp quản lý tài nguyên mạng vô tuyến trong các tình huống thực tế như cân bằng tải, tối ưu hóa tài nguyên vô tuyến và quản lý chuyển giao thông minh giữa các trạm phát gốc (gNB). Bộ mô phỏng này bao gồm các module chính như:
+\section{Mô tả môi trường mô phỏng}
+
+\subsection{Cấu trúc topologi và tham số chính}
+
+Mô phỏng diễn ra trên vùng phẳng kích thước $AREA-SIZE = 600 \times 600$. Hệ thống tổ chức gồm:
+
 \begin{itemize}
-    \item RAN Simulation Module: mô phỏng môi trường mạng vô tuyến với các nút mạng O-RAN như CU, DU, RU.
-    \item Near-Real-Time RIC Module: mô phỏng bộ điều khiển thông minh Near-RT RIC cho phép chạy các ứng dụng quản lý mạng vô tuyến theo thời gian thực gần (xApp).
-    \item xApp Framework: cung cấp các hàm API chuẩn hóa để phát triển, triển khai và đánh giá hiệu suất của các ứng dụng AI/DRL quản lý tài nguyên.
+\item \textbf{gNBs:} 5 trạm gNB:
+\begin{itemize}
+\item 1 gNB trung tâm (center) đặt tại tâm với dung lượng = 70 MB.
+\item 4 gNB góc (corner) đặt gần các góc vùng với dung lượng = 30 MB mỗi trạm.
 \end{itemize}
+\item \textbf{UEs:} 20 thiết bị:
+\begin{itemize}
+\item 10 VOICE UEs, mỗi UE có kích thước gói nhỏ (khoảng 3–10 MB).
+\item 10 MBB UEs, gói lớn hơn (khoảng 11–25 MB).
+\end{itemize}
+\item \textbf{Tốc độ truyền:} $MB-PER-STEP = 2$ MB mỗi bước mô phỏng (mỗi step tương ứng 1 giây trong mô phỏng).
+\item \textbf{Vùng ưu tiên:} cung cấp bán kính ưu tiên cho policy OFFLOAD:
+\begin{itemize}
+\item $VOICE-RADIUS = 75$ (UE voice trong bán kính này quanh gNB góc được ưu tiên kết nối).
+\item $MBB-RADIUS = 150$ (UE MBB trong bán kính này quanh gNB trung tâm được ưu tiên).
+\end{itemize}
+\end{itemize}
+
+\subsection{Luồng hoạt động cơ bản mô phỏng}
+Mô phỏng hoạt động theo các bước (step-by-step):
+
+\begin{enumerate}
+\item Cập nhật tải hiện tại trên từng gNB theo các kết nối đang có.
+\item Kiểm tra hàng đợi (waiting queue) của từng gNB — nếu có thể phục vụ một UE trong queue, chuyển UE đó vào trạng thái kết nối.
+\item Với mỗi UE chưa được phục vụ: chọn gNB phù hợp dựa trên chính sách (DEFAULT hoặc OFFLOAD). Nếu gNB không đủ dung lượng ngay lập tức, UE được đưa vào hàng đợi tương ứng.
+\item Các kết nối hiện hành được truyền $MB-PER-STEP$ MB mỗi step; nếu UE hoàn thành gói — đánh dấu hoàn tất và giải phóng tài nguyên gNB.
+\item Ghi nhận trạng thái mô phỏng (số UE đang active, số UE chờ, tải của từng gNB, v.v.) và tiến sang step tiếp theo.
+\end{enumerate}

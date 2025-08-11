@@ -1,13 +1,20 @@
-\section{Kết quả và đánh giá thực nghiệm}
+\section{Phân tích kỳ vọng và diễn giải kết quả}
 
-Sau khi triển khai và chạy mô phỏng, nhóm thu thập các chỉ số đánh giá hiệu năng của hệ thống mạng như:
-
+\subsection{Throughput và tổng thời gian hoàn thành}
 \begin{itemize}
-    \item Thông lượng mạng trung bình của người dùng.
-    \item Tỷ lệ tải cân bằng giữa các gNB.
-    \item Tỷ lệ chuyển giao (handover) thành công.
-    \item Hiệu suất thuật toán DRL (độ hội tụ, reward trung bình mỗi episode).
+\item \textbf{OFFLOAD} có khả năng giảm tải cho gNB trung tâm nếu corner gNB có thể hấp thụ VOICE; điều này làm center nhanh chóng giải quyết MBB lớn, có thể tăng tổng throughput hệ thống.
+\item Tuy nhiên nếu corner có capacity quá nhỏ so với nhu cầu voice, offload sẽ tạo hàng đợi tại corners → tăng waiting time cho VOICE, có thể giảm QoS voice (nhạy cảm latency).
+\item \textbf{DEFAULT} có xu hướng cân bằng dựa trên khoảng cách → có thể phân phối đều hơn nếu cả 5 gNB có capacity tương tự.
 \end{itemize}
 
+\subsection{Latency và fairness}
+\begin{itemize}
+\item Nếu mục tiêu là tối đa hóa fairness (đều tải), DEFAULT có thể tốt hơn khi topologie và yêu cầu cân đối.
+\item Nếu mục tiêu là tối ưu QoS cho MBB (throughput cho các flows lớn), OFFLOAD ưu hoá bằng cách tập trung MBB vào center — có lợi nếu center có capacity lớn hơn.
+\end{itemize}
 
-Các kết quả mô phỏng ban đầu cho thấy rõ hiệu quả của việc sử dụng kiến trúc Open RAN kết hợp với các thuật toán DRL thông minh trong việc cải thiện hiệu năng hệ thống mạng vô tuyến, khẳng định tính khả thi và hiệu quả của phương pháp này trong việc quản lý tài nguyên và cân bằng tải trong mạng viễn thông tương lai.
+\subsection{Hiệu ứng bottleneck và starve}
+\begin{itemize}
+\item Nếu chính sách ưu góc nhưng corners có capacity nhỏ, ta quan sát hiện tượng \textbf{bounce-back}: UE bị chờ lâu ở corners, trong khi center có thể còn khả năng phục vụ nhưng không được sử dụng (tuỳ cách implementation xử lý fallback).
+\item Đây là một trade-off classic giữa strict offloading (tuân theo chính sách) vs. pragmatic fallback (dựa trên tình hình thực tế).
+\end{itemize}

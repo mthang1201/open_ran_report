@@ -1,4 +1,9 @@
 \section{Tổng quan về mô phỏng}
 
-Nhằm minh họa rõ ràng và trực quan hóa các lợi ích từ việc ứng dụng kiến trúc Open RAN và điều khiển thông minh dựa trên học tăng cường sâu (DRL), nhóm đã quyết định lựa chọn công cụ mô phỏng mã nguồn mở RIMEDO-TS của dự án ONOS. RIMEDO-TS là bộ công cụ được phát triển nhằm mô phỏng và đánh giá hiệu suất các thuật toán quản lý tài nguyên và điều khiển thông minh trong môi trường Open RAN, đặc biệt nhấn mạnh vào khả năng tích hợp dễ dàng các xApp dựa trên AI và DRL.
+Mục tiêu của mô phỏng là đánh giá chiến lược điều hướng lưu lượng \textbf{Traffic Steering} trong O-RAN. Mô phỏng bao gồm một gNB trung tâm và bốn gNB góc khi mạng phục vụ hai loại UE: VOICE (lưu lượng nhỏ, ưu tiên QoS thấp-latency) và MBB (mobile broadband — lưu lượng lớn). Mục tiêu chính:
 
+\begin{itemize}
+\item So sánh hai chính sách phân phối kết nối: \textbf{DEFAULT} (kết nối tới gNB gần nhất còn khả dụng) và \textbf{OFFLOAD} (VOICE ưu lập góc, MBB ưu trung tâm).
+\item Đo lường tác động các chính sách lên throughput, latency (thời gian hoàn thành truyền), tình trạng chờ (queue), và phân bổ tải trên gNB.
+\item Khảo sát trade-off giữa tối ưu hóa cho VOICE vs. MBB, và đánh giá robust của chính sách trước các thay đổi về tham số (dung lượng gNB, tốc độ truyền).
+\end{itemize}

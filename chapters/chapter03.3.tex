@@ -1,9 +1,14 @@
-\section{Triển khai ứng dụng DRL (xApp)}
+\section{Mô tả các chính sách traffic steering}
 
-Nhóm tiến hành triển khai một ứng dụng DRL (Deep Reinforcement Learning) mẫu dưới dạng xApp, cụ thể sử dụng thuật toán DQN (Deep Q-Network) để tối ưu hóa cân bằng tải giữa các trạm phát gốc. Các bước gồm:
-
+\subsection{DEFAULT}
 \begin{itemize}
-    \item Xây dựng hoặc sử dụng lại module DQN agent mẫu có sẵn trong thư mục mẫu của RIMEDO-TS.
-    \item Đăng ký và kích hoạt xApp trên nền tảng Near-RT RIC trong mô phỏng.
-    \item Cấu hình các tham số huấn luyện và kiểm thử của thuật toán DQN, bao gồm số lượng episodes, learning rate, discount factor, và exploration-exploitation parameters.
+\item Mỗi UE kết nối đến gNB \emph{gần nhất} trong tập gNB có "khả năng" — chính sách ưu gNB có chỗ trống (dựa trên tải hiện tại).
+\item Nếu nhiều gNB còn chỗ, chọn dựa trên khoảng cách. Nếu tất cả gNB đầy, có thể ưu gNB có nhiều chỗ trống nhất.
+\end{itemize}
+
+\subsection{OFFLOAD}
+\begin{itemize}
+\item \textbf{VOICE UEs:} ưu kết nối vào các gNB góc nếu UE nằm trong $VOICE-RADIUS$ quanh một gNB góc; nếu không, fall back sang gNB trung tâm (tùy cấu hình thực nghiệm).
+\item \textbf{MBB UEs:} ưu trung tâm nếu UE nằm trong $MBB-RADIUS$ quanh gNB trung tâm; nếu không, chọn gNB góc gần nhất có khả năng.
+\item Mục tiêu: giảm tải cho gNB trung tâm bằng cách đẩy (offload) VOICE đến các gNB góc khi khả dĩ, đồng thời tập trung MBB (lưu lượng lớn) vào trung tâm để tận dụng khả năng tập trung/điều phối.
 \end{itemize}

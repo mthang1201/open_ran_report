@@ -1,0 +1,9 @@
+\section{Giới hạn mô phỏng và các giả định}
+
+\begin{itemize}
+\item \textbf{Hệ thống chưa hoàn thiện:} Chưa train được Agent để tự động lựa chọn chính sách phù hợp, thiếu giao diện điều khiển của O-RAN.
+\item \textbf{Mô hình dữ liệu:} UE gửi một gói kích thước cố định và gói phải được phục vụ nguyên vẹn bởi một gNB (không phân mảnh giữa nhiều gNB).
+\item \textbf{Không có mobility:} UE vị trí cố định. Mobility (handovers) có thể làm thay đổi sâu sắc hiệu năng và cần được mô phỏng cho kịch bản di động.
+\item \textbf{Độ chính xác radio:} mô phỏng không tính đến các yếu tố vật lý phức tạp (pathloss, fading, interference, MCS adaptation). Nó giả sử coverage quyết định bằng khoảng cách đơn giản và radius ưu tiên.
+\item \textbf{Scheduling:} mô phỏng đơn giản hoá tài nguyên ở mức MB capacity; thực tế scheduling PHY/MAC phức tạp hơn (RB allocation, CQI, HARQ).
+\end{itemize}
